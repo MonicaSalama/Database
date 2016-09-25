@@ -1,0 +1,17 @@
+<% provide(:title, 'Friend Requests') %>
+<h1>Friend Requests</h1>
+
+<ul class="users">
+  <% @requests.each do |user| %>
+    <li>
+      <% if user.profilepicture? %>
+        <%= image_tag user.profilepicture.url  %>
+      <% else %>
+        <%= gravatar_for user, size: 20 %>
+      <% end %>
+      <%= link_to user.firstname, user %>
+        <%= link_to "Accept", "/users/" + current_user.id.to_s + "/accept_request/" + user.id.to_s %>
+        <%= link_to "Decline", "/users/" + current_user.id.to_s + "/decline_request/" + user.id.to_s %>
+    </li>
+  <% end %>
+</ul>

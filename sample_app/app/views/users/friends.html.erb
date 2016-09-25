@@ -1,0 +1,15 @@
+<% provide(:title, 'Friends') %>
+<h1>Friends</h1>
+
+<ul class="users">
+  <% @friends.each do |friend| %>
+    <li>
+      <% if friend.profilepicture? %>
+        <%= image_tag friend.profilepicture.url  %>
+      <% else %>
+        <%= gravatar_for friend, size: 50 %>
+      <% end %>
+      <%= link_to friend.firstname, friend %>
+    </li>
+  <% end %>
+</ul>

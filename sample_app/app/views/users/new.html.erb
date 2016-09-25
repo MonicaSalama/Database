@@ -1,0 +1,44 @@
+<% provide(:title, 'Sign up') %>
+<h1>Sign up</h1>
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for(@user) do |f| %>
+      <%= render 'shared/error_messages', object: f.object %>
+      <%= f.label :firstname %>
+      <%= f.text_field :firstname, class: 'form-control' %>
+      
+      <%= f.label :lastname %>
+      <%= f.text_field :lastname, class: 'form-control' %>
+
+      <%= f.label :email %>
+      <%= f.email_field :email, class: 'form-control' %>
+      
+      <%= f.label :password %>
+      <%= f.password_field :password, class: 'form-control' %>
+
+      <%= f.label :password_confirmation, "Confirm Password" %>
+      <%= f.password_field :password_confirmation, class: 'form-control' %>
+      
+      <%= f.label :gender %>
+      <%= f.select :gender, [['Male','Male'],['Female','Female'],['Other','Other']] %>
+      
+      <%= f.label :birthdate %>
+      <%= f.date_select :birthdate, start_year: 1920, end_year: 1997, class: 'form-control' %>
+      
+      <%= f.label :phone %>
+      <%= f.text_field :phone, class: 'form-control' %>
+      
+      <%= f.label :hometown %>
+      <%= f.text_field :hometown, class: 'form-control' %>
+      
+      <%= f.label :maritalstatus, "Martial Status" %>
+      <%= f.select :maritalstatus, [['Single','Single'],['Engaged','Engaged'],['Married','Married']] %>
+      
+      <%= f.label :bio %>
+      <%= f.text_area :bio, class: 'form-control' %>
+      
+      <%= f.submit "Create my account", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+</div>

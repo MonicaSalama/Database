@@ -1,0 +1,9 @@
+  <h1> Listing users </h1>
+  <body>
+    <%= render :partial => 'shared/search_box' %>
+    <%= render :partial => 'shared/search_boxPost' %>
+  </body>
+<h1>Show Search Results</h1>
+<table>
+<%= render :partial => @users %>
+</table>

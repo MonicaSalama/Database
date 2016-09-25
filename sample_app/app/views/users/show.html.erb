@@ -1,0 +1,68 @@
+<% provide(:title, @user.firstname + " " + @user.lastname) %>
+<div class="row">
+  <aside class="col-md-4">
+    <section class="user_info">
+      <h1>
+        <% if @user.profilepicture? %>
+          <%= image_tag @user.profilepicture.url  %>
+        <% else %>
+          <%= gravatar_for @user %>
+        <% end %>
+        <%= @user.firstname + " " + @user.lastname %>
+      </h1>
+      <% if current_user?(@user) %>
+        <%= link_to "Remove Photo", "/users/" + current_user.id.to_s + "/removepp",
+                                         data: { confirm: "You sure?" } %>
+      <% end %>
+      <ul>
+          <li> <%= "Email: " + @user.email %> </li>
+          <li> <%= "Gender: " + @user.gender %> </li>
+          <% if @user.phone? %>
+            <li> <%= "Phone: " + @user.phone %> </li>
+          <% end %>
+          <% if @user.hometown? %>
+            <li> <%= "Hometown: " + @user.hometown %> </li>
+          <% end %>
+          <li> <%= "Marital Status: " + @user.maritalstatus %> </li>
+          <% if current_user.friends_with?(@user) or current_user == @user %>
+            <li> <%= "Birthdate: " + @user.birthdate.strftime("%d %B %Y") %> </li>
+            <% if @user.bio? %>
+              <li> <%= "About Me: " + @user.bio %> </li>
+            <% end %>
+          <% end %>
+      </ul>
+      <% if current_user.friends_with?(@user) %>
+        <%= link_to "Remove friend", "/users/" + current_user.id.to_s + "/remove_friend/" + @user.id.to_s %>
+      <% elsif current_user.pending_friends.exists?(@user) %>
+        <%= "Requested" %>
+      <% elsif current_user.requested_friends.exists?(@user) %>
+        <%= link_to "Accept", "/users/" + current_user.id.to_s + "/accept_request/" + @user.id.to_s %>
+        <%= link_to "Decline", "/users/" + current_user.id.to_s + "/decline_request/" + @user.id.to_s %>
+      <% elsif @user != current_user %>
+        <%= link_to "Add friend", "/users/" + current_user.id.to_s + "/add_friend/" + @user.id.to_s %>
+      <% end %>
+
+    </section>
+    
+    
+  </aside>
+  <div class="col-md-8">
+    <% if current_user.friends_with?(@user) or current_user == @user %>
+      <% if @user.microposts.any? %>
+        <h3>Microposts (<%= @user.microposts.count %>)</h3>
+        <ol class="microposts">
+          <%= render @microposts %>
+        </ol>
+        <%= will_paginate @microposts %>
+      <% end %>
+    <% else %>
+      <% if @publicposts.count != 0 %>
+        <h3>Microposts (<%= @publicposts.count %>)</h3>
+        <ol class="microposts">
+          <%= render @publicposts %>
+        </ol>
+        <%= will_paginate @publicposts %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

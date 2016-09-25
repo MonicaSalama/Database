@@ -1,0 +1,7 @@
+<div align="left">
+<%= form_tag("/searchUsers", method: "get") do %>
+  <%= label_tag(:id, "Search for:") %>
+  <%= text_field_tag(:id) %>
+  <%= submit_tag("Search") %>
+<% end %>
+</div>

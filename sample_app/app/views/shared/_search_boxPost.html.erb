@@ -1,0 +1,7 @@
+<div align="left">
+<%= form_tag("/searchpost", method: "get") do %>
+  <%= label_tag(:id, "Search for:") %>
+  <%= text_field_tag(:id) %>
+  <%= submit_tag("Search Post") %>
+<% end %>
+</div>
